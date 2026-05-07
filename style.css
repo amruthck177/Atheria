@@ -223,6 +223,18 @@ canvas#particleCanvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 #sendBtn:hover::before{opacity:1}
 #sendBtn:active{transform:scale(.92)}
 
+/* Mic Button */
+.mic-btn{width:42px;height:42px;border-radius:50%;background:var(--bg-glass);border:1px solid var(--border);color:var(--text-secondary);font-size:1.1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s var(--ease-spring)}
+.mic-btn:hover{background:var(--bg-glass-hover);color:var(--text-primary);transform:scale(1.1)}
+.mic-btn.recording{background:linear-gradient(135deg,#E85D75,#FF6B8A);color:#fff;border-color:#E85D75;animation:micPulse 1.5s ease-in-out infinite;box-shadow:0 0 25px rgba(232,93,117,.4)}
+@keyframes micPulse{0%,100%{box-shadow:0 0 20px rgba(232,93,117,.3)}50%{box-shadow:0 0 40px rgba(232,93,117,.6),0 0 60px rgba(232,93,117,.2)}}
+
+/* Voice Toggle Active */
+.header-btn.voice-active{background:linear-gradient(135deg,var(--primary),#9B8AFF);color:#fff;border-color:var(--primary);box-shadow:0 0 16px var(--primary-glow)}
+
+/* Screen Reader Only */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
 /* === BREATHING === */
 .breathe-overlay{position:fixed;inset:0;z-index:150;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;background:rgba(13,11,26,.92);backdrop-filter:blur(20px);opacity:0;pointer-events:none;transition:opacity .5s}
 .breathe-overlay.active{opacity:1;pointer-events:all}

@@ -436,6 +436,8 @@
     messagesContainer.appendChild(div);
     scrollToBottom();
     state.chatHistory.push({ role: role === 'ai' ? 'model' : 'user', parts: [{ text }] });
+    // Voice: speak AI responses aloud if enabled
+    if (role === 'ai' && typeof speakText === 'function') speakText(text);
   }
 
   function formatMessage(s) {
@@ -614,4 +616,136 @@
     if (!sorted.length) { moodStats.innerHTML = '<p style="font-size:.8rem;color:var(--text-muted)">No data yet</p>'; return; }
     moodStats.innerHTML = sorted.map(([m, c]) => `<div class="stat-pill"><span class="pill-emoji">${MOODS[m]?.emoji || '❓'}</span><span class="pill-count">${c}</span></div>`).join('');
   }
+
+  /* ══════════════════════════════════════════
+     VOICE CHAT — Speech-to-Text & Text-to-Speech
+     ══════════════════════════════════════════ */
+
+  const micBtn = $('#micBtn');
+  const voiceToggleBtn = $('#voiceToggleBtn');
+  let voiceEnabled = localStorage.getItem('aetheria_voice') === 'true';
+  let recognition = null;
+  let isRecording = false;
+
+  // Initialize voice toggle state
+  if (voiceEnabled && voiceToggleBtn) {
+    voiceToggleBtn.classList.add('voice-active');
+    voiceToggleBtn.textContent = '🔊';
+  }
+
+  /* ── Text-to-Speech (AI reads responses aloud) ── */
+  function speakText(text) {
+    if (!voiceEnabled || !('speechSynthesis' in window)) return;
+    // Cancel any ongoing speech
+    window.speechSynthesis.cancel();
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = 0.95;
+    utterance.pitch = 1.05;
+    utterance.volume = 0.9;
+
+    // Try to pick a pleasant voice
+    const voices = window.speechSynthesis.getVoices();
+    const preferred = voices.find(v =>
+      v.name.includes('Google') && v.lang.startsWith('en')
+    ) || voices.find(v =>
+      v.lang.startsWith('en') && v.name.includes('Female')
+    ) || voices.find(v => v.lang.startsWith('en'));
+
+    if (preferred) utterance.voice = preferred;
+    window.speechSynthesis.speak(utterance);
+  }
+
+  // Ensure voices are loaded
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.onvoiceschanged = () => {};
+  }
+
+  /* ── Voice Toggle Button ── */
+  voiceToggleBtn?.addEventListener('click', () => {
+    voiceEnabled = !voiceEnabled;
+    localStorage.setItem('aetheria_voice', voiceEnabled);
+    if (voiceEnabled) {
+      voiceToggleBtn.classList.add('voice-active');
+      voiceToggleBtn.textContent = '🔊';
+      showToast('🔊 Voice responses enabled');
+    } else {
+      voiceToggleBtn.classList.remove('voice-active');
+      voiceToggleBtn.textContent = '🔇';
+      window.speechSynthesis.cancel();
+      showToast('🔇 Voice responses disabled');
+    }
+  });
+
+  /* ── Speech-to-Text (Mic Input) ── */
+  function initSpeechRecognition() {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      micBtn.style.display = 'none';
+      return null;
+    }
+
+    const rec = new SpeechRecognition();
+    rec.continuous = false;
+    rec.interimResults = true;
+    rec.lang = 'en-US';
+    rec.maxAlternatives = 1;
+
+    rec.onstart = () => {
+      isRecording = true;
+      micBtn.classList.add('recording');
+      micBtn.textContent = '⏹';
+      chatInput.placeholder = '🎙 Listening...';
+    };
+
+    rec.onresult = (event) => {
+      let transcript = '';
+      for (let i = event.resultIndex; i < event.results.length; i++) {
+        transcript += event.results[i][0].transcript;
+      }
+      chatInput.value = transcript;
+    };
+
+    rec.onend = () => {
+      isRecording = false;
+      micBtn.classList.remove('recording');
+      micBtn.textContent = '🎤';
+      chatInput.placeholder = "Share what's on your mind...";
+      // Auto-send if we got text
+      if (chatInput.value.trim()) {
+        sendMessage();
+      }
+    };
+
+    rec.onerror = (event) => {
+      isRecording = false;
+      micBtn.classList.remove('recording');
+      micBtn.textContent = '🎤';
+      chatInput.placeholder = "Share what's on your mind...";
+      if (event.error === 'not-allowed') {
+        showToast('🎤 Microphone access denied. Please allow mic access.');
+      } else if (event.error !== 'aborted') {
+        showToast('🎤 Voice input error. Try again.');
+      }
+    };
+
+    return rec;
+  }
+
+  recognition = initSpeechRecognition();
+
+  micBtn?.addEventListener('click', () => {
+    if (!recognition) {
+      showToast('🎤 Voice input not supported in this browser.');
+      return;
+    }
+    if (isRecording) {
+      recognition.stop();
+    } else {
+      chatInput.value = '';
+      recognition.start();
+    }
+  });
+
+
 })();
