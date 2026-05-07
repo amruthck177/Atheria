@@ -587,9 +587,49 @@
   $('#headerBreatheBtn')?.addEventListener('click', openBreathe);
 
   /* ── Sidebar Buttons ── */
-  $('#newChatBtn')?.addEventListener('click', () => { if (state.currentMood) startConversation(); });
-  $('#changeMoodBtn')?.addEventListener('click', () => { appShell.classList.remove('active'); showScreen(moodScreen); });
-  $('#dashBtn')?.addEventListener('click', () => { appShell.classList.remove('active'); goToDashboard(); });
+  $('#newChatBtn')?.addEventListener('click', () => { closeSidebar(); if (state.currentMood) startConversation(); });
+  $('#changeMoodBtn')?.addEventListener('click', () => { closeSidebar(); appShell.classList.remove('active'); showScreen(moodScreen); });
+  $('#dashBtn')?.addEventListener('click', () => { closeSidebar(); appShell.classList.remove('active'); goToDashboard(); });
+
+  /* ── Mobile Sidebar Slide-in ── */
+  const sidebar = $('.sidebar');
+  const sidebarOverlay = $('#sidebarOverlay');
+
+  function openSidebar() {
+    sidebar.classList.add('open');
+    sidebarOverlay.classList.add('active');
+  }
+  function closeSidebar() {
+    sidebar.classList.remove('open');
+    sidebarOverlay.classList.remove('active');
+  }
+
+  $('#mobileMenuBtn')?.addEventListener('click', () => {
+    sidebar.classList.contains('open') ? closeSidebar() : openSidebar();
+  });
+  sidebarOverlay?.addEventListener('click', closeSidebar);
+
+  /* ── Theme Toggle (Dark / Light) ── */
+  const themeBtn = $('#themeToggleBtn');
+  let isLight = localStorage.getItem('aetheria_theme') === 'light';
+
+  function applyTheme() {
+    if (isLight) {
+      document.body.classList.add('light-theme');
+      if (themeBtn) themeBtn.textContent = '☀️';
+    } else {
+      document.body.classList.remove('light-theme');
+      if (themeBtn) themeBtn.textContent = '🌙';
+    }
+  }
+  applyTheme();
+
+  themeBtn?.addEventListener('click', () => {
+    isLight = !isLight;
+    localStorage.setItem('aetheria_theme', isLight ? 'light' : 'dark');
+    applyTheme();
+    showToast(isLight ? '☀️ Light mode' : '🌙 Dark mode');
+  });
 
   /* ── Journal ── */
   function saveMoodToJournal(mood) {

@@ -275,9 +275,14 @@ canvas#particleCanvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 .breathe-start-btn{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--primary),#9B8AFF);border-color:var(--primary);animation:pulseGlow 2s ease-in-out infinite}
 .breathe-start-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(45deg,transparent 30%,rgba(255,255,255,.2) 50%,transparent 70%);animation:shimmer 2.5s ease-in-out infinite}
 
+/* === MOBILE SIDEBAR SLIDE-IN === */
+.sidebar-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:99;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(4px)}
+.sidebar-overlay.active{opacity:1;pointer-events:all}
+
 /* === RESPONSIVE === */
 @media(max-width:768px){
-  .sidebar{display:none}
+  .sidebar{position:fixed;left:0;top:0;bottom:0;z-index:100;transform:translateX(-100%);transition:transform .35s var(--ease-spring);box-shadow:4px 0 30px rgba(0,0,0,.4)}
+  .sidebar.open{transform:translateX(0)}
   .mobile-menu-btn{display:flex}
   .mood-grid{grid-template-columns:repeat(2,1fr)}
   .dash-grid{grid-template-columns:1fr}
@@ -288,3 +293,16 @@ canvas#particleCanvas{position:fixed;inset:0;z-index:0;pointer-events:none}
   #dashboardScreen{padding:24px 16px}
   .quick-prompts{flex-wrap:nowrap}
 }
+
+/* === LIGHT THEME === */
+body.light-theme{
+  --bg-deep:#F5F3FF;--bg-surface:#FFFFFF;
+  --bg-card:rgba(0,0,0,.03);--bg-glass:rgba(0,0,0,.04);
+  --bg-glass-hover:rgba(0,0,0,.08);--bg-input:rgba(0,0,0,.05);
+  --text-primary:#1A1330;--text-secondary:#5A5270;--text-muted:#8A8498;
+  --border:rgba(0,0,0,.1);--border-hover:rgba(124,111,235,.5);
+}
+body.light-theme .blob{opacity:.08}
+body.light-theme .message.user .msg-bubble{color:#fff}
+body.light-theme .chat-header{background:rgba(255,255,255,.7)}
+body.light-theme .chat-input-area{background:rgba(255,255,255,.7)}
