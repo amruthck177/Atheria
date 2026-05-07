@@ -5,191 +5,359 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Aetheria ✨ – Your Emotional Wellness Companion</title>
   <meta name="description" content="Aetheria is your safe, AI-powered emotional companion. Share your feelings and find comfort." />
+  <meta name="theme-color" content="#0D0B1A" />
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheet -->
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
-  <canvas id="particleCanvas"></canvas>
+  <!-- ═══════════════════════════════════════════
+       BACKGROUND LAYER — Canvas & Animated Blobs
+       ═══════════════════════════════════════════ -->
+  <canvas id="particleCanvas" aria-hidden="true"></canvas>
+
   <div class="bg-blobs" aria-hidden="true">
     <div class="blob blob-1"></div>
     <div class="blob blob-2"></div>
     <div class="blob blob-3"></div>
   </div>
 
-  <!-- LOGIN SCREEN -->
-  <div class="screen active" id="loginScreen">
-    <div class="login-card">
-      <div class="logo-glow"></div>
-      <div class="logo">✨</div>
-      <h1>Aetheria</h1>
+
+  <!-- ═══════════════════════════════════════════
+       SCREEN 1 — LOGIN
+       ═══════════════════════════════════════════ -->
+  <section class="screen active" id="loginScreen" aria-label="Login">
+    <div class="login-card" role="form" aria-labelledby="loginTitle">
+      <div class="logo-glow" aria-hidden="true"></div>
+      <div class="logo" aria-hidden="true">✨</div>
+
+      <h1 id="loginTitle">Aetheria</h1>
       <p class="tagline">Your safe space to feel, express, and heal.</p>
+
       <div class="login-field">
         <label for="nameInput">Your Name</label>
-        <input type="text" id="nameInput" placeholder="What should I call you?" autocomplete="off" />
+        <input
+          type="text"
+          id="nameInput"
+          placeholder="What should I call you?"
+          autocomplete="off"
+          aria-required="true"
+        />
       </div>
-      <button class="login-btn" id="loginBtn">
-        <span class="btn-text">Enter Aetheria</span>
-        <span class="btn-icon-arrow">→</span>
-      </button>
-      <p class="login-error" id="loginError">Please enter your name to continue.</p>
-    </div>
-  </div>
 
-  <!-- DASHBOARD -->
-  <div class="screen" id="dashboardScreen">
+      <button class="login-btn" id="loginBtn" type="button" aria-label="Enter Aetheria">
+        <span class="btn-text">Enter Aetheria</span>
+        <span class="btn-icon-arrow" aria-hidden="true">→</span>
+      </button>
+
+      <p class="login-error" id="loginError" role="alert">
+        Please enter your name to continue.
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       SCREEN 2 — DASHBOARD
+       ═══════════════════════════════════════════ -->
+  <section class="screen" id="dashboardScreen" aria-label="Dashboard">
     <div class="dash-container">
-      <div class="dash-header">
+
+      <!-- Dashboard Header -->
+      <header class="dash-header">
         <div class="dash-greeting">
           <p class="dash-time-label" id="dashTimeLabel">Good morning,</p>
           <h2><span id="dashName">Friend</span> 💫</h2>
         </div>
-        <button class="logout-btn" id="logoutBtn">
+        <button class="logout-btn" id="logoutBtn" type="button" aria-label="Sign out">
           <span>Sign Out</span>
         </button>
-      </div>
+      </header>
 
       <!-- Affirmation Banner -->
-      <div class="affirmation-banner" id="affirmationBanner">
-        <span class="affirmation-icon">🌸</span>
-        <p class="affirmation-text" id="affirmationText">You are worthy of love and kindness — especially from yourself.</p>
+      <div class="affirmation-banner" role="complementary" aria-label="Daily affirmation">
+        <span class="affirmation-icon" aria-hidden="true">🌸</span>
+        <p class="affirmation-text" id="affirmationText">
+          You are worthy of love and kindness — especially from yourself.
+        </p>
       </div>
 
-      <div class="dash-grid">
-        <div class="dash-card card-primary" id="startChatCard">
-          <div class="card-icon">💬</div>
-          <div class="card-title">Start a Conversation</div>
-          <div class="card-desc">Talk about how you're feeling today. I'm all ears.</div>
-          <div class="card-arrow">→</div>
-        </div>
-        <div class="dash-card card-green" id="breatheCard">
-          <div class="card-icon">🫁</div>
-          <div class="card-title">Breathing Exercise</div>
-          <div class="card-desc">Take a calming breath. 4-4-4 technique to center yourself.</div>
-          <div class="card-arrow">→</div>
-        </div>
-        <div class="dash-card card-orange">
-          <div class="card-icon">📊</div>
-          <div class="card-title">Mood Stats</div>
-          <div class="card-desc">Your emotional journey at a glance.</div>
+      <!-- Feature Cards Grid -->
+      <div class="dash-grid" role="list">
+        <!-- Start Chat Card -->
+        <article class="dash-card card-primary" id="startChatCard" role="listitem" tabindex="0" aria-label="Start a conversation">
+          <div class="card-icon" aria-hidden="true">💬</div>
+          <h3 class="card-title">Start a Conversation</h3>
+          <p class="card-desc">Talk about how you're feeling today. I'm all ears.</p>
+          <div class="card-arrow" aria-hidden="true">→</div>
+        </article>
+
+        <!-- Breathing Exercise Card -->
+        <article class="dash-card card-green" id="breatheCard" role="listitem" tabindex="0" aria-label="Breathing exercise">
+          <div class="card-icon" aria-hidden="true">🫁</div>
+          <h3 class="card-title">Breathing Exercise</h3>
+          <p class="card-desc">Take a calming breath. 4-4-4 technique to center yourself.</p>
+          <div class="card-arrow" aria-hidden="true">→</div>
+        </article>
+
+        <!-- Mood Stats Card -->
+        <article class="dash-card card-orange" role="listitem" aria-label="Mood statistics">
+          <div class="card-icon" aria-hidden="true">📊</div>
+          <h3 class="card-title">Mood Stats</h3>
+          <p class="card-desc">Your emotional journey at a glance.</p>
           <div class="mood-stats" id="moodStats"></div>
-        </div>
-        <div class="dash-card card-purple">
-          <div class="card-icon">📔</div>
-          <div class="card-title">Recent Journal</div>
-          <div class="card-desc">Your mood entries.</div>
-          <div class="journal-preview" id="journalPreview"></div>
-        </div>
-      </div>
-    </div>
-  </div>
+        </article>
 
-  <!-- MOOD SELECTION -->
-  <div class="screen" id="moodScreen">
-    <button class="back-btn" id="moodBackBtn" title="Back to Dashboard">← Back</button>
+        <!-- Journal Card -->
+        <article class="dash-card card-purple" role="listitem" aria-label="Recent journal entries">
+          <div class="card-icon" aria-hidden="true">📔</div>
+          <h3 class="card-title">Recent Journal</h3>
+          <p class="card-desc">Your mood entries.</p>
+          <div class="journal-preview" id="journalPreview"></div>
+        </article>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       SCREEN 3 — MOOD SELECTION
+       ═══════════════════════════════════════════ -->
+  <section class="screen" id="moodScreen" aria-label="Mood selection">
+    <button class="back-btn" id="moodBackBtn" type="button" aria-label="Back to Dashboard">
+      ← Back
+    </button>
+
     <div class="mood-heading">
       <h2>How are you feeling, <span id="moodUserName">friend</span>?</h2>
       <p>Tap what resonates with you</p>
     </div>
-    <div class="mood-grid" id="moodGrid">
-      <button class="mood-card" data-mood="angry"><span class="mood-emoji">😡</span><span class="mood-label">Angry</span></button>
-      <button class="mood-card" data-mood="sad"><span class="mood-emoji">😢</span><span class="mood-label">Sad</span></button>
-      <button class="mood-card" data-mood="anxious"><span class="mood-emoji">😰</span><span class="mood-label">Anxious</span></button>
-      <button class="mood-card" data-mood="frustrated"><span class="mood-emoji">😤</span><span class="mood-label">Frustrated</span></button>
-      <button class="mood-card" data-mood="happy"><span class="mood-emoji">😊</span><span class="mood-label">Happy</span></button>
-      <button class="mood-card" data-mood="lonely"><span class="mood-emoji">🥺</span><span class="mood-label">Lonely</span></button>
-      <button class="mood-card" data-mood="overwhelmed"><span class="mood-emoji">🤯</span><span class="mood-label">Overwhelmed</span></button>
-      <button class="mood-card" data-mood="numb"><span class="mood-emoji">😶</span><span class="mood-label">Numb</span></button>
-    </div>
-  </div>
 
-  <!-- API KEY MODAL -->
-  <div class="modal-overlay" id="apiKeyModal">
+    <div class="mood-grid" id="moodGrid" role="group" aria-label="Available moods">
+      <button class="mood-card" data-mood="angry" type="button" aria-label="Angry">
+        <span class="mood-emoji" aria-hidden="true">😡</span>
+        <span class="mood-label">Angry</span>
+      </button>
+      <button class="mood-card" data-mood="sad" type="button" aria-label="Sad">
+        <span class="mood-emoji" aria-hidden="true">😢</span>
+        <span class="mood-label">Sad</span>
+      </button>
+      <button class="mood-card" data-mood="anxious" type="button" aria-label="Anxious">
+        <span class="mood-emoji" aria-hidden="true">😰</span>
+        <span class="mood-label">Anxious</span>
+      </button>
+      <button class="mood-card" data-mood="frustrated" type="button" aria-label="Frustrated">
+        <span class="mood-emoji" aria-hidden="true">😤</span>
+        <span class="mood-label">Frustrated</span>
+      </button>
+      <button class="mood-card" data-mood="happy" type="button" aria-label="Happy">
+        <span class="mood-emoji" aria-hidden="true">😊</span>
+        <span class="mood-label">Happy</span>
+      </button>
+      <button class="mood-card" data-mood="lonely" type="button" aria-label="Lonely">
+        <span class="mood-emoji" aria-hidden="true">🥺</span>
+        <span class="mood-label">Lonely</span>
+      </button>
+      <button class="mood-card" data-mood="overwhelmed" type="button" aria-label="Overwhelmed">
+        <span class="mood-emoji" aria-hidden="true">🤯</span>
+        <span class="mood-label">Overwhelmed</span>
+      </button>
+      <button class="mood-card" data-mood="numb" type="button" aria-label="Numb">
+        <span class="mood-emoji" aria-hidden="true">😶</span>
+        <span class="mood-label">Numb</span>
+      </button>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       MODAL — API KEY (Optional)
+       ═══════════════════════════════════════════ -->
+  <div class="modal-overlay" id="apiKeyModal" role="dialog" aria-modal="true" aria-labelledby="apiModalTitle">
     <div class="modal-box">
-      <div class="modal-icon">🔑</div>
-      <h2>Connect Your AI</h2>
-      <p>Enter your Gemini API key to power Aetheria's conversations. Your key is stored locally and never shared.</p>
+      <div class="modal-icon" aria-hidden="true">🔑</div>
+      <h2 id="apiModalTitle">Connect Your AI</h2>
+      <p>
+        Enter your Gemini API key to power Aetheria's conversations.
+        Your key is stored locally and never shared.
+      </p>
+
       <div class="modal-input-group">
-        <input type="password" class="modal-input" id="apiKeyInput" placeholder="Paste your Gemini API key..." />
-        <button class="modal-toggle-vis" id="toggleKeyVis" title="Show/Hide key">👁</button>
+        <input
+          type="password"
+          class="modal-input"
+          id="apiKeyInput"
+          placeholder="Paste your Gemini API key..."
+          aria-label="Gemini API key"
+        />
+        <button class="modal-toggle-vis" id="toggleKeyVis" type="button" title="Show/Hide key" aria-label="Toggle key visibility">
+          👁
+        </button>
       </div>
-      <button class="modal-submit" id="apiKeySubmit">Connect & Start ✨</button>
-      <p class="modal-error" id="apiKeyError">Please enter a valid API key.</p>
-      <a class="modal-help" href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">Get a free API key from Google AI Studio →</a>
+
+      <button class="modal-submit" id="apiKeySubmit" type="button">Connect & Start ✨</button>
+
+      <p class="modal-error" id="apiKeyError" role="alert">
+        Please enter a valid API key.
+      </p>
+
+      <a
+        class="modal-help"
+        href="https://aistudio.google.com/app/apikey"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Get a free API key from Google AI Studio →
+      </a>
     </div>
   </div>
 
-  <!-- CHAT -->
+
+  <!-- ═══════════════════════════════════════════
+       APP SHELL — CHAT INTERFACE
+       ═══════════════════════════════════════════ -->
   <div class="app-shell" id="appShell">
-    <aside class="sidebar">
-      <div class="sidebar-logo"><span class="logo-icon">✨</span><span class="logo-name">Aetheria</span></div>
-      <div class="sidebar-section">
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" aria-label="Sidebar navigation">
+      <div class="sidebar-logo">
+        <span class="logo-icon" aria-hidden="true">✨</span>
+        <span class="logo-name">Aetheria</span>
+      </div>
+
+      <!-- Current Mood Display -->
+      <nav class="sidebar-section" aria-label="Current mood">
         <p class="sidebar-label">Current Mood</p>
         <div class="current-mood-display">
-          <span class="current-mood-emoji" id="currentMoodEmoji">😊</span>
+          <span class="current-mood-emoji" id="currentMoodEmoji" aria-hidden="true">😊</span>
           <span class="current-mood-text" id="currentMoodText">Happy</span>
         </div>
-      </div>
-      <div class="sidebar-section">
+      </nav>
+
+      <!-- Tools -->
+      <nav class="sidebar-section" aria-label="Tools">
         <p class="sidebar-label">Tools</p>
-        <button class="sidebar-btn" id="breatheBtn"><span class="btn-icon">🫁</span> Breathing</button>
-        <button class="sidebar-btn" id="newChatBtn"><span class="btn-icon">🔄</span> New Chat</button>
-        <button class="sidebar-btn" id="changeMoodBtn"><span class="btn-icon">🎭</span> Change Mood</button>
-        <button class="sidebar-btn" id="dashBtn"><span class="btn-icon">📊</span> Dashboard</button>
-      </div>
-      <div class="sidebar-footer">
+        <button class="sidebar-btn" id="breatheBtn" type="button">
+          <span class="btn-icon" aria-hidden="true">🫁</span> Breathing
+        </button>
+        <button class="sidebar-btn" id="newChatBtn" type="button">
+          <span class="btn-icon" aria-hidden="true">🔄</span> New Chat
+        </button>
+        <button class="sidebar-btn" id="changeMoodBtn" type="button">
+          <span class="btn-icon" aria-hidden="true">🎭</span> Change Mood
+        </button>
+        <button class="sidebar-btn" id="dashBtn" type="button">
+          <span class="btn-icon" aria-hidden="true">📊</span> Dashboard
+        </button>
+      </nav>
+
+      <!-- User Info Footer -->
+      <footer class="sidebar-footer">
         <p class="sidebar-label">Logged in as</p>
         <p class="sidebar-user" id="sidebarUser">Friend</p>
-      </div>
+      </footer>
     </aside>
-    <main class="chat-area">
-      <div class="chat-header">
-        <button class="mobile-menu-btn" id="mobileMenuBtn" title="Menu">☰</button>
-        <div class="chat-avatar" id="chatAvatar">✨</div>
-        <div class="chat-info"><h3>Aetheria</h3><p>Always here for you</p></div>
+
+    <!-- Main Chat Area -->
+    <main class="chat-area" aria-label="Chat conversation">
+
+      <!-- Chat Header -->
+      <header class="chat-header">
+        <button class="mobile-menu-btn" id="mobileMenuBtn" type="button" title="Menu" aria-label="Toggle sidebar menu">
+          ☰
+        </button>
+        <div class="chat-avatar" id="chatAvatar" aria-hidden="true">✨</div>
+        <div class="chat-info">
+          <h3>Aetheria</h3>
+          <p>Always here for you</p>
+        </div>
         <div class="chat-header-actions">
-          <button class="header-btn" id="headerBreatheBtn" title="Breathing Exercise">🫁</button>
+          <button class="header-btn" id="headerBreatheBtn" type="button" title="Breathing Exercise" aria-label="Open breathing exercise">
+            🫁
+          </button>
+        </div>
+      </header>
+
+      <!-- Messages -->
+      <div class="messages-container" id="messagesContainer" role="log" aria-live="polite" aria-label="Chat messages"></div>
+
+      <!-- Typing Indicator -->
+      <div class="typing-indicator" id="typingIndicator" aria-label="Aetheria is typing" role="status">
+        <div class="msg-avatar" aria-hidden="true">✨</div>
+        <div class="typing-dots" aria-hidden="true">
+          <span class="typing-dot"></span>
+          <span class="typing-dot"></span>
+          <span class="typing-dot"></span>
         </div>
       </div>
-      <div class="messages-container" id="messagesContainer"></div>
-      <div class="typing-indicator" id="typingIndicator">
-        <div class="msg-avatar">✨</div>
-        <div class="typing-dots"><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></div>
+
+      <!-- Quick Prompt Suggestions -->
+      <div class="quick-prompts" id="quickPrompts" role="group" aria-label="Quick conversation starters">
+        <button class="quick-prompt-btn" data-prompt="I just need someone to listen" type="button">
+          💭 Just listen
+        </button>
+        <button class="quick-prompt-btn" data-prompt="Can you help me calm down?" type="button">
+          🧘 Help me calm down
+        </button>
+        <button class="quick-prompt-btn" data-prompt="I want to talk about my day" type="button">
+          📝 My day
+        </button>
+        <button class="quick-prompt-btn" data-prompt="Give me an encouraging thought" type="button">
+          🌟 Encourage me
+        </button>
       </div>
 
-      <!-- Quick Prompts -->
-      <div class="quick-prompts" id="quickPrompts">
-        <button class="quick-prompt-btn" data-prompt="I just need someone to listen">💭 Just listen</button>
-        <button class="quick-prompt-btn" data-prompt="Can you help me calm down?">🧘 Help me calm down</button>
-        <button class="quick-prompt-btn" data-prompt="I want to talk about my day">📝 My day</button>
-        <button class="quick-prompt-btn" data-prompt="Give me an encouraging thought">🌟 Encourage me</button>
-      </div>
-
+      <!-- Chat Input -->
       <div class="chat-input-area">
         <div class="chat-input-wrapper">
-          <input type="text" id="chatInput" placeholder="Share what's on your mind..." autocomplete="off" />
-          <button id="sendBtn" title="Send">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+          <label for="chatInput" class="sr-only">Type your message</label>
+          <input
+            type="text"
+            id="chatInput"
+            placeholder="Share what's on your mind..."
+            autocomplete="off"
+            aria-label="Message input"
+          />
+          <button id="sendBtn" type="button" title="Send message" aria-label="Send message">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
           </button>
         </div>
       </div>
+
     </main>
   </div>
 
-  <!-- BREATHING EXERCISE -->
-  <div class="breathe-overlay" id="breatheOverlay">
+
+  <!-- ═══════════════════════════════════════════
+       OVERLAY — BREATHING EXERCISE
+       ═══════════════════════════════════════════ -->
+  <div class="breathe-overlay" id="breatheOverlay" role="dialog" aria-modal="true" aria-label="Breathing exercise">
     <div class="breathe-circle" id="breatheCircle">Ready</div>
     <p class="breathe-label" id="breatheLabel">Press start to begin</p>
     <div class="breathe-actions">
-      <button class="breathe-start-btn" id="breatheStartBtn">▶ Start</button>
-      <button class="breathe-close-btn" id="breatheCloseBtn">✕ Close</button>
+      <button class="breathe-start-btn" id="breatheStartBtn" type="button">▶ Start</button>
+      <button class="breathe-close-btn" id="breatheCloseBtn" type="button">✕ Close</button>
     </div>
   </div>
 
-  <!-- TOAST -->
-  <div class="toast" id="toast"></div>
 
+  <!-- ═══════════════════════════════════════════
+       TOAST NOTIFICATION
+       ═══════════════════════════════════════════ -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+
+  <!-- Application Logic -->
   <script src="app.js"></script>
 </body>
 </html>
