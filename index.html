@@ -3,9 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aetheria ✨ – Your Emotional Wellness Companion</title>
-  <meta name="description" content="Aetheria is your safe, AI-powered emotional companion. Share your feelings and find comfort." />
+  <title>Aetheria ✨ – Your Emotional Wellness Sanctuary</title>
+  <meta name="description" content="Aetheria is your safe, AI-powered emotional companion and mindfulness sanctuary. Share your feelings, breathe, meditate, ground your senses, and find comfort." />
   <meta name="theme-color" content="#0D0B1A" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://generativelanguage.googleapis.com; img-src 'self' data:; media-src 'self' data:;" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>" />
+  <link rel="manifest" href="manifest.json" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -52,7 +57,7 @@
       </div>
 
       <button class="login-btn" id="loginBtn" type="button" aria-label="Enter Aetheria">
-        <span class="btn-text">Enter Aetheria</span>
+        <span class="btn-text">Enter Sanctuary</span>
         <span class="btn-icon-arrow" aria-hidden="true">→</span>
       </button>
 
@@ -73,11 +78,23 @@
       <header class="dash-header">
         <div class="dash-greeting">
           <p class="dash-time-label" id="dashTimeLabel">Good morning,</p>
-          <h2><span id="dashName">Friend</span> 💫</h2>
+          <h2><span id="dashName">Friend</span> <button class="edit-name-btn" id="editNameBtn" type="button" title="Change your name" aria-label="Change your name">✏️</button> 💫</h2>
         </div>
-        <button class="logout-btn" id="logoutBtn" type="button" aria-label="Sign out">
-          <span>Sign Out</span>
-        </button>
+        <div class="dash-actions">
+          <button class="dash-cmd-btn" id="dashCmdBtn" type="button" title="Open Command Palette (Ctrl+K)" aria-label="Command Palette">
+            <span class="cmd-icon">⌘</span>
+            <span class="cmd-hint">Ctrl+K</span>
+          </button>
+          <button class="header-action-btn" id="dashZenBtn" type="button" title="Enter Fullscreen Zen Sanctuary" aria-label="Zen Mode">
+            🌌 Zen Mode
+          </button>
+          <button class="header-action-btn" id="dashApiBtn" type="button" title="Configure Secure AI Connection" aria-label="Connect AI">
+            🔑 Connect AI
+          </button>
+          <button class="logout-btn" id="logoutBtn" type="button" aria-label="Sign out">
+            <span>Sign Out</span>
+          </button>
+        </div>
       </header>
 
       <!-- Affirmation Banner -->
@@ -88,37 +105,148 @@
         </p>
       </div>
 
+      <!-- Quick Soundscape Player Strip -->
+      <div class="soundscape-dash-bar" id="soundscapeDashBar" role="region" aria-label="Soundscape player">
+        <div class="soundscape-info">
+          <span class="soundscape-icon" id="dashSoundIcon">🎵</span>
+          <div class="soundscape-labels">
+            <span class="soundscape-title">Ambient Soundscapes</span>
+            <span class="soundscape-current" id="dashSoundName">Off (Silence)</span>
+          </div>
+        </div>
+        <div class="soundscape-controls">
+          <div class="soundscape-selector-pills">
+            <button class="sound-pill active" data-sound="off" type="button">Off</button>
+            <button class="sound-pill" data-sound="rain" type="button">🌧️ Rain</button>
+            <button class="sound-pill" data-sound="ocean" type="button">🌊 Ocean</button>
+            <button class="sound-pill" data-sound="drone" type="button">✨ 432Hz</button>
+            <button class="sound-pill" data-sound="breeze" type="button">🍃 Breeze</button>
+            <button class="sound-pill" data-sound="brown" type="button">🎧 Brown Noise</button>
+            <button class="sound-pill" data-sound="fire" type="button">🔥 Campfire</button>
+          </div>
+          <div class="soundscape-extra-actions">
+            <button class="mixer-trigger-btn" id="openMixerBtn" type="button" title="Open Multi-Layer Sound Mixer">🎛️ Mixer</button>
+          </div>
+          <div class="volume-slider-group">
+            <span class="vol-icon" aria-hidden="true">🔈</span>
+            <input type="range" id="soundVolumeSlider" min="0" max="1" step="0.05" value="0.5" aria-label="Ambient volume" />
+            <span class="vol-icon" aria-hidden="true">🔊</span>
+          </div>
+        </div>
+      </div>
+
       <!-- Feature Cards Grid -->
       <div class="dash-grid" role="list">
         <!-- Start Chat Card -->
         <article class="dash-card card-primary" id="startChatCard" role="listitem" tabindex="0" aria-label="Start a conversation">
           <div class="card-icon" aria-hidden="true">💬</div>
-          <h3 class="card-title">Start a Conversation</h3>
-          <p class="card-desc">Talk about how you're feeling today. I'm all ears.</p>
+          <h3 class="card-title">Companion Chat</h3>
+          <p class="card-desc">Talk about what's on your mind. Safe, warm & listening.</p>
           <div class="card-arrow" aria-hidden="true">→</div>
         </article>
 
-        <!-- Breathing Exercise Card -->
-        <article class="dash-card card-green" id="breatheCard" role="listitem" tabindex="0" aria-label="Breathing exercise">
+        <!-- Breathing Gym Card -->
+        <article class="dash-card card-green" id="breatheCard" role="listitem" tabindex="0" aria-label="Breathing exercises">
           <div class="card-icon" aria-hidden="true">🫁</div>
-          <h3 class="card-title">Breathing Exercise</h3>
-          <p class="card-desc">Take a calming breath. 4-4-4 technique to center yourself.</p>
+          <h3 class="card-title">Breathing Gym</h3>
+          <p class="card-desc">4-4-4 Box, 4-7-8 Relaxation, or Physiological Sigh.</p>
           <div class="card-arrow" aria-hidden="true">→</div>
         </article>
 
-        <!-- Mood Stats Card -->
-        <article class="dash-card card-orange" role="listitem" aria-label="Mood statistics">
-          <div class="card-icon" aria-hidden="true">📊</div>
-          <h3 class="card-title">Mood Stats</h3>
-          <p class="card-desc">Your emotional journey at a glance.</p>
-          <div class="mood-stats" id="moodStats"></div>
+        <!-- Zen Meditation Timer Card -->
+        <article class="dash-card card-gold" id="dashMeditationCard" role="listitem" tabindex="0" aria-label="Zen Meditation Timer">
+          <div class="card-icon" aria-hidden="true">🔔</div>
+          <h3 class="card-title">Meditation & Bowls</h3>
+          <p class="card-desc">Timed silent sanctuary with Tibetan singing bowls.</p>
+          <div class="card-arrow" aria-hidden="true">→</div>
         </article>
 
-        <!-- Journal Card -->
-        <article class="dash-card card-purple" role="listitem" aria-label="Recent journal entries">
-          <div class="card-icon" aria-hidden="true">📔</div>
-          <h3 class="card-title">Recent Journal</h3>
-          <p class="card-desc">Your mood entries.</p>
+        <!-- 5-4-3-2-1 Grounding Card -->
+        <article class="dash-card card-teal" id="dashGroundingCard" role="listitem" tabindex="0" aria-label="5-4-3-2-1 Sensory Grounding">
+          <div class="card-icon" aria-hidden="true">🌿</div>
+          <h3 class="card-title">5-4-3-2-1 Grounding</h3>
+          <p class="card-desc">Somatic calming exercise to center your senses.</p>
+          <div class="card-arrow" aria-hidden="true">→</div>
+        </article>
+
+        <!-- Gratitude & Joy Jar Card -->
+        <article class="dash-card card-amber" id="dashGratitudeCard" role="listitem" tabindex="0" aria-label="Gratitude & Joy Jar">
+          <div class="card-icon" aria-hidden="true">🏺</div>
+          <h3 class="card-title">Gratitude & Joy Jar</h3>
+          <p class="card-desc" id="gratitudeCountDesc">Drop gratitude stars or draw uplifting memories.</p>
+          <div class="card-arrow" aria-hidden="true">→</div>
+        </article>
+
+        <!-- Companion Persona Card -->
+        <article class="dash-card card-pink" id="dashPersonaCard" role="listitem" tabindex="0" aria-label="Choose companion persona">
+          <div class="card-icon" aria-hidden="true">🎭</div>
+          <h3 class="card-title">Companion Tone</h3>
+          <p class="card-desc" id="currentPersonaDesc">Friend: Warm, gentle & empathetic.</p>
+          <div class="card-arrow" aria-hidden="true">→</div>
+        </article>
+
+        <!-- Comfort Vault Card -->
+        <article class="dash-card card-indigo" id="dashVaultCard" role="listitem" tabindex="0" aria-label="Message Comfort Vault">
+          <div class="card-icon" aria-hidden="true">⭐</div>
+          <h3 class="card-title">Comfort Vault</h3>
+          <p class="card-desc" id="vaultCountDesc">Your saved comforting words & affirmations.</p>
+          <div class="card-arrow" aria-hidden="true">→</div>
+        </article>
+
+        <!-- Daily Self-Care Quests Card -->
+        <article class="dash-card card-emerald dash-card-wide" id="dashQuestsCard" role="listitem" aria-label="Daily Gentle Self-Care Quests">
+          <div class="card-header-flex">
+            <div>
+              <div class="card-icon" aria-hidden="true">🌱</div>
+              <h3 class="card-title">Daily Nourishment Quests</h3>
+              <p class="card-desc">Gentle micro-habits for your body and spirit today.</p>
+            </div>
+            <div class="quest-streak-badge">
+              <span>🔥 Streak: </span>
+              <strong id="questStreakCount">1 Day</strong>
+            </div>
+          </div>
+          <div class="quest-list" id="questList">
+            <!-- Dynamically populated -->
+          </div>
+        </article>
+
+        <!-- Mood Analytics & 7-Day Trend Chart Card -->
+        <article class="dash-card card-orange dash-card-wide" role="listitem" aria-label="Mood trend analytics">
+          <div class="card-header-flex">
+            <div>
+              <div class="card-icon" aria-hidden="true">📈</div>
+              <h3 class="card-title">7-Day Emotional Journey</h3>
+              <p class="card-desc">Visual mood flow over time.</p>
+            </div>
+            <div class="mood-stats" id="moodStats"></div>
+          </div>
+          <div class="mood-chart-container" id="moodChartContainer">
+            <svg id="moodTrendSvg" viewBox="0 0 700 160" preserveAspectRatio="none" aria-label="Mood trend line graph"></svg>
+          </div>
+        </article>
+
+        <!-- Journal & Quick Reflection Card -->
+        <article class="dash-card card-purple dash-card-wide" role="listitem" aria-label="Recent journal entries and notes">
+          <div class="card-header-flex">
+            <div>
+              <div class="card-icon" aria-hidden="true">📔</div>
+              <h3 class="card-title">Mood Journal & Reflections</h3>
+              <p class="card-desc">Your recorded moments & thoughts.</p>
+            </div>
+            <div class="journal-action-btns">
+              <button class="journal-btn" id="exportMdBtn" type="button" title="Export as Markdown">📄 Export .MD</button>
+              <button class="journal-btn" id="exportJsonBtn" type="button" title="Export as JSON">💾 Export JSON</button>
+              <button class="journal-btn btn-danger-soft" id="clearDataBtn" type="button" title="Clear All Data">🗑️ Clear</button>
+            </div>
+          </div>
+
+          <!-- Quick Note Form -->
+          <div class="quick-note-box">
+            <input type="text" id="quickNoteInput" placeholder="Add a personal reflection or journal note..." aria-label="Quick journal reflection note" />
+            <button class="quick-note-save" id="saveNoteBtn" type="button">Save Note ✍️</button>
+          </div>
+
           <div class="journal-preview" id="journalPreview"></div>
         </article>
       </div>
@@ -178,49 +306,6 @@
 
 
   <!-- ═══════════════════════════════════════════
-       MODAL — API KEY (Optional)
-       ═══════════════════════════════════════════ -->
-  <div class="modal-overlay" id="apiKeyModal" role="dialog" aria-modal="true" aria-labelledby="apiModalTitle">
-    <div class="modal-box">
-      <div class="modal-icon" aria-hidden="true">🔑</div>
-      <h2 id="apiModalTitle">Connect Your AI</h2>
-      <p>
-        Enter your Gemini API key to power Aetheria's conversations.
-        Your key is stored locally and never shared.
-      </p>
-
-      <div class="modal-input-group">
-        <input
-          type="password"
-          class="modal-input"
-          id="apiKeyInput"
-          placeholder="Paste your Gemini API key..."
-          aria-label="Gemini API key"
-        />
-        <button class="modal-toggle-vis" id="toggleKeyVis" type="button" title="Show/Hide key" aria-label="Toggle key visibility">
-          👁
-        </button>
-      </div>
-
-      <button class="modal-submit" id="apiKeySubmit" type="button">Connect & Start ✨</button>
-
-      <p class="modal-error" id="apiKeyError" role="alert">
-        Please enter a valid API key.
-      </p>
-
-      <a
-        class="modal-help"
-        href="https://aistudio.google.com/app/apikey"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Get a free API key from Google AI Studio →
-      </a>
-    </div>
-  </div>
-
-
-  <!-- ═══════════════════════════════════════════
        APP SHELL — CHAT INTERFACE
        ═══════════════════════════════════════════ -->
   <div class="app-shell" id="appShell">
@@ -245,16 +330,40 @@
       </nav>
 
       <!-- Tools -->
-      <nav class="sidebar-section" aria-label="Tools">
-        <p class="sidebar-label">Tools</p>
+      <nav class="sidebar-section" aria-label="Sanctuary Tools">
+        <p class="sidebar-label">Sanctuary Tools</p>
         <button class="sidebar-btn" id="breatheBtn" type="button">
-          <span class="btn-icon" aria-hidden="true">🫁</span> Breathing
+          <span class="btn-icon" aria-hidden="true">🫁</span> Breathing Gym
+        </button>
+        <button class="sidebar-btn" id="meditationBtn" type="button">
+          <span class="btn-icon" aria-hidden="true">🔔</span> Meditation Timer
+        </button>
+        <button class="sidebar-btn" id="groundingBtn" type="button">
+          <span class="btn-icon" aria-hidden="true">🌿</span> 5-4-3-2-1 Grounding
+        </button>
+        <button class="sidebar-btn" id="gratitudeBtn" type="button">
+          <span class="btn-icon" aria-hidden="true">🏺</span> Gratitude Jar
+        </button>
+        <button class="sidebar-btn" id="vaultBtn" type="button">
+          <span class="btn-icon" aria-hidden="true">⭐</span> Comfort Vault
+        </button>
+        <button class="sidebar-btn" id="zenBtn" type="button">
+          <span class="btn-icon" aria-hidden="true">🌌</span> Zen Sanctuary
+        </button>
+        <button class="sidebar-btn" id="personaBtn" type="button">
+          <span class="btn-icon" aria-hidden="true">🎭</span> Companion Tone
+        </button>
+        <button class="sidebar-btn" id="sidebarSoundBtn" type="button">
+          <span class="btn-icon" aria-hidden="true">🎵</span> Soundscapes
+        </button>
+        <button class="sidebar-btn" id="sidebarApiBtn" type="button">
+          <span class="btn-icon" aria-hidden="true">🔑</span> Connect AI
         </button>
         <button class="sidebar-btn" id="newChatBtn" type="button">
           <span class="btn-icon" aria-hidden="true">🔄</span> New Chat
         </button>
         <button class="sidebar-btn" id="changeMoodBtn" type="button">
-          <span class="btn-icon" aria-hidden="true">🎭</span> Change Mood
+          <span class="btn-icon" aria-hidden="true">🌈</span> Change Mood
         </button>
         <button class="sidebar-btn" id="dashBtn" type="button">
           <span class="btn-icon" aria-hidden="true">📊</span> Dashboard
@@ -279,9 +388,18 @@
         <div class="chat-avatar" id="chatAvatar" aria-hidden="true">✨</div>
         <div class="chat-info">
           <h3>Aetheria</h3>
-          <p>Always here for you</p>
+          <p id="chatSubtext">Empathetic Friend • Always here for you</p>
         </div>
         <div class="chat-header-actions">
+          <button class="header-btn" id="headerApiBtn" type="button" title="Configure AI Key" aria-label="Configure AI Key">
+            🔑
+          </button>
+          <button class="header-btn" id="headerVaultBtn" type="button" title="Open Comfort Vault" aria-label="Comfort Vault">
+            ⭐
+          </button>
+          <button class="header-btn" id="headerSoundBtn" type="button" title="Toggle Soundscape" aria-label="Toggle Soundscape">
+            🎵
+          </button>
           <button class="header-btn" id="voiceToggleBtn" type="button" title="Toggle voice responses" aria-label="Toggle voice responses">
             🔊
           </button>
@@ -330,7 +448,7 @@
           <input
             type="text"
             id="chatInput"
-            placeholder="Share what's on your mind..."
+            placeholder="Share what's on your mind... (or use 🎤 for voice)"
             autocomplete="off"
             aria-label="Message input"
           />
@@ -351,14 +469,355 @@
 
 
   <!-- ═══════════════════════════════════════════
-       OVERLAY — BREATHING EXERCISE
+       MODAL — GRATITUDE & JOY JAR
        ═══════════════════════════════════════════ -->
-  <div class="breathe-overlay" id="breatheOverlay" role="dialog" aria-modal="true" aria-label="Breathing exercise">
-    <div class="breathe-circle" id="breatheCircle">Ready</div>
-    <p class="breathe-label" id="breatheLabel">Press start to begin</p>
-    <div class="breathe-actions">
-      <button class="breathe-start-btn" id="breatheStartBtn" type="button">▶ Start</button>
-      <button class="breathe-close-btn" id="breatheCloseBtn" type="button">✕ Close</button>
+  <div class="modal-overlay" id="gratitudeModal" role="dialog" aria-modal="true" aria-labelledby="gratitudeModalTitle">
+    <div class="modal-box modal-box-wide">
+      <button class="modal-close-corner" id="gratitudeCloseBtn" type="button" aria-label="Close modal">✕</button>
+      <div class="modal-icon" aria-hidden="true">🏺</div>
+      <h2 id="gratitudeModalTitle">Gratitude & Joy Jar</h2>
+      <p>Save glowing moments of joy and draw them whenever you need a lift.</p>
+
+      <div class="gratitude-jar-visual" id="gratitudeJarVisual">
+        <div class="jar-glass-body">
+          <div class="jar-stars-container" id="jarStarsContainer">
+            <!-- Stars rendered dynamically -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Add New Memory -->
+      <div class="gratitude-input-group">
+        <input type="text" id="gratitudeNoteInput" placeholder="What is one small thing you are grateful for right now?" aria-label="Gratitude note input" />
+        <button class="gratitude-add-btn" id="addGratitudeBtn" type="button">Drop Star ✨</button>
+      </div>
+
+      <div class="gratitude-actions">
+        <button class="gratitude-draw-btn" id="drawMemoryBtn" type="button">🎴 Draw a Memory from Jar</button>
+      </div>
+
+      <!-- Memory Drawn Display -->
+      <div class="drawn-memory-card" id="drawnMemoryCard" style="display:none;">
+        <span class="drawn-sparkle">✦</span>
+        <p class="drawn-memory-text" id="drawnMemoryText"></p>
+        <span class="drawn-memory-date" id="drawnMemoryDate"></span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════
+       MODAL — ZEN MEDITATION TIMER
+       ═══════════════════════════════════════════ -->
+  <div class="modal-overlay" id="meditationModal" role="dialog" aria-modal="true" aria-labelledby="meditationModalTitle">
+    <div class="modal-box">
+      <button class="modal-close-corner" id="meditationCloseBtn" type="button" aria-label="Close modal">✕</button>
+      <div class="modal-icon" aria-hidden="true">🔔</div>
+      <h2 id="meditationModalTitle">Zen Meditation Sanctuary</h2>
+      <p>Sit quietly in presence with harmonic Tibetan singing bowl chimes.</p>
+
+      <!-- Duration Selector Pills -->
+      <div class="meditation-durations" id="meditationDurations">
+        <button class="meditation-pill" data-minutes="1" type="button">1m</button>
+        <button class="meditation-pill active" data-minutes="3" type="button">3m</button>
+        <button class="meditation-pill" data-minutes="5" type="button">5m</button>
+        <button class="meditation-pill" data-minutes="10" type="button">10m</button>
+        <button class="meditation-pill" data-minutes="15" type="button">15m</button>
+        <button class="meditation-pill" data-minutes="20" type="button">20m</button>
+      </div>
+
+      <!-- Progress Ring & Countdown -->
+      <div class="meditation-timer-display">
+        <svg class="meditation-ring" viewBox="0 0 160 160">
+          <circle cx="80" cy="80" r="70" class="ring-bg" />
+          <circle cx="80" cy="80" r="70" class="ring-progress" id="meditationRingProgress" />
+        </svg>
+        <div class="meditation-time-text" id="meditationTimeText">03:00</div>
+      </div>
+
+      <div class="meditation-bowl-action">
+        <button class="bowl-sound-test-btn" id="testBowlBtn" type="button" title="Test Tibetan Singing Bowl Chime">
+          🎵 Test Singing Bowl Chime
+        </button>
+      </div>
+
+      <div class="meditation-actions">
+        <button class="meditation-start-btn" id="meditationStartBtn" type="button">▶ Start Meditation</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════
+       OVERLAY — FULLSCREEN ZEN SANCTUARY
+       ═══════════════════════════════════════════ -->
+  <div class="zen-sanctuary-overlay" id="zenSanctuaryOverlay" role="dialog" aria-modal="true" aria-label="Fullscreen Zen Sanctuary">
+    <button class="zen-exit-btn" id="zenExitBtn" type="button" aria-label="Exit Zen Sanctuary">✕ Exit Zen</button>
+    
+    <div class="zen-content">
+      <div class="zen-pulsing-orb" id="zenOrb"></div>
+      <p class="zen-instruction" id="zenInstruction">Breathe gently. You are exactly where you need to be.</p>
+      <div class="zen-wisdom-card">
+        <span class="zen-quote-icon">“</span>
+        <p class="zen-wisdom-text" id="zenWisdomText">Peace comes from within. Do not seek it without.</p>
+      </div>
+      <button class="zen-next-quote-btn" id="zenNextQuoteBtn" type="button">Next Wisdom Reflection ✨</button>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════
+       MODAL — SOUNDSCAPE MIXER (Multi-Layer)
+       ═══════════════════════════════════════════ -->
+  <div class="modal-overlay" id="soundMixerModal" role="dialog" aria-modal="true" aria-labelledby="soundMixerTitle">
+    <div class="modal-box modal-box-wide">
+      <button class="modal-close-corner" id="soundMixerCloseBtn" type="button" aria-label="Close modal">✕</button>
+      <div class="modal-icon" aria-hidden="true">🎛️</div>
+      <h2 id="soundMixerTitle">Soundscape Multi-Mixer</h2>
+      <p>Layer multiple ambient soundscapes together to create your custom acoustic refuge.</p>
+
+      <div class="mixer-channels-grid">
+        <div class="mixer-channel" data-track="rain">
+          <span class="mixer-track-icon">🌧️</span>
+          <span class="mixer-track-name">Rain</span>
+          <input type="range" class="mixer-track-vol" data-track="rain" min="0" max="1" step="0.05" value="0" />
+        </div>
+        <div class="mixer-channel" data-track="ocean">
+          <span class="mixer-track-icon">🌊</span>
+          <span class="mixer-track-name">Ocean</span>
+          <input type="range" class="mixer-track-vol" data-track="ocean" min="0" max="1" step="0.05" value="0" />
+        </div>
+        <div class="mixer-channel" data-track="drone">
+          <span class="mixer-track-icon">✨</span>
+          <span class="mixer-track-name">432Hz</span>
+          <input type="range" class="mixer-track-vol" data-track="drone" min="0" max="1" step="0.05" value="0" />
+        </div>
+        <div class="mixer-channel" data-track="breeze">
+          <span class="mixer-track-icon">🍃</span>
+          <span class="mixer-track-name">Breeze</span>
+          <input type="range" class="mixer-track-vol" data-track="breeze" min="0" max="1" step="0.05" value="0" />
+        </div>
+        <div class="mixer-channel" data-track="brown">
+          <span class="mixer-track-icon">🎧</span>
+          <span class="mixer-track-name">Brown Noise</span>
+          <input type="range" class="mixer-track-vol" data-track="brown" min="0" max="1" step="0.05" value="0" />
+        </div>
+        <div class="mixer-channel" data-track="fire">
+          <span class="mixer-track-icon">🔥</span>
+          <span class="mixer-track-name">Campfire</span>
+          <input type="range" class="mixer-track-vol" data-track="fire" min="0" max="1" step="0.05" value="0" />
+        </div>
+      </div>
+
+      <div class="mixer-actions">
+        <button class="mixer-reset-btn" id="mixerMuteAllBtn" type="button">🔇 Mute All Layers</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════
+       MODAL — MESSAGE COMFORT VAULT
+       ═══════════════════════════════════════════ -->
+  <div class="modal-overlay" id="comfortVaultModal" role="dialog" aria-modal="true" aria-labelledby="comfortVaultTitle">
+    <div class="modal-box modal-box-wide">
+      <button class="modal-close-corner" id="comfortVaultCloseBtn" type="button" aria-label="Close modal">✕</button>
+      <div class="modal-icon" aria-hidden="true">⭐</div>
+      <h2 id="comfortVaultTitle">Comfort Vault</h2>
+      <p>Your starred soothing companion messages and personal reminders.</p>
+
+      <div class="vault-items-list" id="vaultItemsList">
+        <!-- Injected dynamically -->
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════
+       MODAL — COMPANION PERSONA SELECTOR
+       ═══════════════════════════════════════════ -->
+  <div class="modal-overlay" id="personaModal" role="dialog" aria-modal="true" aria-labelledby="personaModalTitle">
+    <div class="modal-box modal-box-wide">
+      <button class="modal-close-corner" id="personaCloseBtn" type="button" aria-label="Close modal">✕</button>
+      <div class="modal-icon" aria-hidden="true">🎭</div>
+      <h2 id="personaModalTitle">Choose Companion Tone</h2>
+      <p>Select how you'd like Aetheria to speak with you.</p>
+
+      <div class="persona-grid" role="radiogroup" aria-label="Companion personas">
+        <div class="persona-card active" data-persona="friend" role="radio" aria-checked="true" tabindex="0">
+          <div class="persona-badge">Default</div>
+          <span class="persona-emoji">🌸</span>
+          <h4>Empathetic Friend</h4>
+          <p>Warm, gentle, nurturing, and deeply comforting.</p>
+        </div>
+
+        <div class="persona-card" data-persona="stoic" role="radio" aria-checked="false" tabindex="0">
+          <span class="persona-emoji">🧘</span>
+          <h4>Zen Stoic</h4>
+          <p>Calm, grounded, philosophical, and perspective-building.</p>
+        </div>
+
+        <div class="persona-card" data-persona="motivational" role="radio" aria-checked="false" tabindex="0">
+          <span class="persona-emoji">⚡</span>
+          <h4>Motivational Guide</h4>
+          <p>Uplifting, empowering, positive energy & forward-looking.</p>
+        </div>
+
+        <div class="persona-card" data-persona="listener" role="radio" aria-checked="false" tabindex="0">
+          <span class="persona-emoji">🤫</span>
+          <h4>Quiet Listener</h4>
+          <p>Short, peaceful, non-intrusive reflections with gentle presence.</p>
+        </div>
+      </div>
+
+      <button class="modal-submit" id="personaSubmitBtn" type="button">Select Tone ✨</button>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════
+       MODAL — COMMAND PALETTE (Ctrl+K)
+       ═══════════════════════════════════════════ -->
+  <div class="modal-overlay" id="commandPalette" role="dialog" aria-modal="true" aria-label="Command Palette">
+    <div class="palette-box">
+      <div class="palette-input-wrapper">
+        <span class="palette-search-icon" aria-hidden="true">🔍</span>
+        <input
+          type="text"
+          class="palette-input"
+          id="paletteInput"
+          placeholder="Type a command or mood... (e.g., 'meditation', 'jar', 'rain', 'breathe')"
+          autocomplete="off"
+          aria-label="Search commands"
+        />
+        <kbd class="palette-esc-hint">Esc</kbd>
+      </div>
+      <div class="palette-results" id="paletteResults" role="listbox">
+        <!-- Injected dynamically by app.js -->
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════
+       MODAL — API KEY (Optional Gemini AI)
+       ═══════════════════════════════════════════ -->
+  <div class="modal-overlay" id="apiKeyModal" role="dialog" aria-modal="true" aria-labelledby="apiModalTitle">
+    <div class="modal-box">
+      <button class="modal-close-corner" id="apiKeyCloseBtn" type="button" aria-label="Close modal">✕</button>
+      <div class="modal-icon" aria-hidden="true">🔑</div>
+      <h2 id="apiModalTitle">Secure AI Connection</h2>
+      <p>
+        Connect your Google Gemini API key for advanced generative wellness conversations.
+      </p>
+
+      <div class="api-security-badge" id="apiSecurityBadge">
+        <span class="sec-icon">🔒</span> Encrypted on-device with AES-GCM 256-bit
+      </div>
+
+      <div class="api-key-status" id="apiKeyStatus" style="display:none;"></div>
+
+      <div class="modal-input-group" id="apiKeyInputGroup">
+        <input
+          type="password"
+          class="modal-input"
+          id="apiKeyInput"
+          placeholder="Paste your Gemini API key (AIzaSy...)"
+          aria-label="Gemini API key"
+          autocomplete="off"
+          spellcheck="false"
+        />
+        <button class="modal-toggle-vis" id="toggleKeyVis" type="button" title="Show/Hide key" aria-label="Toggle key visibility">
+          👁
+        </button>
+      </div>
+
+      <button class="modal-submit" id="apiKeySubmit" type="button">Connect & Encrypt ✨</button>
+      <button class="modal-disconnect-btn" id="apiKeyDisconnectBtn" type="button" style="display:none;">🗑️ Disconnect & Purge Key</button>
+
+      <p class="modal-error" id="apiKeyError" role="alert">
+        Please enter a valid Gemini API key (starts with AIzaSy...).
+      </p>
+
+      <a
+        class="modal-help"
+        href="https://aistudio.google.com/app/apikey"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Get a free API key from Google AI Studio →
+      </a>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════
+       OVERLAY — EXPANDED BREATHING EXERCISE
+       ═══════════════════════════════════════════ -->
+  <div class="breathe-overlay" id="breatheOverlay" role="dialog" aria-modal="true" aria-label="Breathing exercises">
+    <div class="breathe-modal-box">
+      <!-- Technique Switcher Tabs -->
+      <div class="breathe-tabs" role="tablist" aria-label="Breathing techniques">
+        <button class="breathe-tab active" data-technique="box" role="tab" aria-selected="true" type="button">4-4-4 Box</button>
+        <button class="breathe-tab" data-technique="478" role="tab" aria-selected="false" type="button">4-7-8 Deep Sleep</button>
+        <button class="breathe-tab" data-technique="sigh" role="tab" aria-selected="false" type="button">Physiological Sigh</button>
+      </div>
+
+      <div class="breathe-circle" id="breatheCircle">Ready</div>
+      <p class="breathe-label" id="breatheLabel">Press start to begin</p>
+      <p class="breathe-sublabel" id="breatheSublabel">4-4-4 Technique: Inhale (4s) • Hold (4s) • Exhale (4s)</p>
+
+      <div class="breathe-actions">
+        <button class="breathe-start-btn" id="breatheStartBtn" type="button">▶ Start</button>
+        <button class="breathe-close-btn" id="breatheCloseBtn" type="button">✕ Close</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════
+       OVERLAY — 5-4-3-2-1 SENSORY GROUNDING
+       ═══════════════════════════════════════════ -->
+  <div class="grounding-overlay" id="groundingOverlay" role="dialog" aria-modal="true" aria-label="5-4-3-2-1 Sensory Grounding">
+    <div class="grounding-box">
+      <button class="modal-close-corner" id="groundingCloseBtn" type="button" aria-label="Close grounding exercise">✕</button>
+
+      <div class="grounding-header">
+        <span class="grounding-badge">Somatic Grounding</span>
+        <h2 id="groundingTitle">5-4-3-2-1 Grounding Technique</h2>
+        <p class="grounding-desc">Anchor your mind to the physical present moment.</p>
+      </div>
+
+      <!-- Step Progress Dots -->
+      <div class="grounding-steps-indicator" aria-hidden="true">
+        <span class="step-dot active" data-step="5">5</span>
+        <span class="step-dot" data-step="4">4</span>
+        <span class="step-dot" data-step="3">3</span>
+        <span class="step-dot" data-step="2">2</span>
+        <span class="step-dot" data-step="1">1</span>
+      </div>
+
+      <!-- Interactive Step Content -->
+      <div class="grounding-card" id="groundingCardContent">
+        <div class="grounding-step-icon" id="groundingIcon">👁️</div>
+        <h3 class="grounding-step-title" id="groundingStepTitle">5 Things You Can See</h3>
+        <p class="grounding-step-instruction" id="groundingInstruction">
+          Look around you right now. Notice 5 distinct objects, patterns, or colors.
+        </p>
+
+        <div class="grounding-inputs" id="groundingInputsContainer">
+          <input type="text" class="grounding-input" placeholder="1. What do you see?" />
+          <input type="text" class="grounding-input" placeholder="2. Something else..." />
+          <input type="text" class="grounding-input" placeholder="3. Another detail..." />
+          <input type="text" class="grounding-input" placeholder="4. A color or shape..." />
+          <input type="text" class="grounding-input" placeholder="5. One more object..." />
+        </div>
+      </div>
+
+      <div class="grounding-footer">
+        <button class="grounding-nav-btn" id="groundingPrevBtn" type="button" style="display:none;">← Previous</button>
+        <button class="grounding-nav-btn primary" id="groundingNextBtn" type="button">Next Step →</button>
+      </div>
     </div>
   </div>
 
